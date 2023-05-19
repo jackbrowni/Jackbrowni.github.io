@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Download Video to pCloud</title>
+</head>
+<body>
+  <h1>Download Video to pCloud</h1>
+  <input type="text" id="video-url" placeholder="Enter the video URL">
+  <input type="text" id="username" placeholder="Enter your pCloud username">
+  <input type="password" id="password" placeholder="Enter your pCloud password">
+  <button onclick="downloadVideo()">Download Video</button>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pcloud/4.0.1/pcloud.min.js"></script>
+  <script>
+    function downloadVideo() {
+      // Get the video URL
+      var videoUrl = document.getElementById("video-url").value;
+
+      // Get the pCloud username and password
+      var username = document.getElementById("username").value;
+      var password = document.getElementById("password").value;
+
+      // Create a pCloud client
+      var client = new pcloud.Client();
+
+      // Login to pCloud
+      client.login(username, password);
+
+      // Get the name of the video from the URL
+      var videoName = videoUrl.split("/").pop();
+
+      // Check if the folder exists
+      var folderId = "your_folder_id";
+      if (!client.folderExists(folderId)) {
+        // Create the folder
+        client.createFolder(folderId);
+      }
+
+      // Download the video
+      client.download(videoUrl, f"{folder_id}/{videoName}");
+
+      // Display a message
+      alert("Video downloaded successfully!");
+    }
+  </script>
+</body>
+</html>
